@@ -2,7 +2,7 @@
 
 **A-TREVel** is an open-source MATLAB toolbox for time-dependent coordinate transformation between Terrestrial Reference Frame (TRF) realizations. The software was developed as part of the APPPOLO project and provides a graphical environment for coordinate updating, coordinate conversion, retrieval of SIRGAS-CON coordinates, and access to ITRF station coordinates and velocities.
 
-A-TREVel implements time-dependent Helmert transformations following the IERS formulation and explicitly separates station temporal propagation from reference frame transformation. This distinction allows the user to update coordinates between different epochs and reference frame realizations while accounting for station velocities and, when available, uncertainty propagation.
+A-TREVel implements time-dependent Helmert transformations following the IERS formulation and explicitly separates station temporal propagation from reference frame transformation. This distinction allows the user to update coordinates between different epochs and reference frame realizations while accounting for station velocities and, when available, formal uncertainty propagation.
 
 ## Main Features
 
@@ -14,7 +14,7 @@ A-TREVel implements time-dependent Helmert transformations following the IERS fo
   - VEMOS regional velocity models;
   - Euler pole angular velocity parameters;
   - user-defined ECEF velocity components;
-- Optional covariance propagation;
+- Optional formal covariance propagation;
 - Coordinate conversion between geodetic and geocentric systems;
 - Retrieval of SIRGAS-CON weekly coordinates;
 - Retrieval and propagation of ITRF2020 station coordinates;
@@ -37,7 +37,7 @@ When direct transformation parameters between two realizations are not available
 
 ## Velocity Models
 
-A-TREVel supports different velocity modeling strategies:
+A-TREVel supports different velocity modeling strategies.
 
 ### Network-based velocities
 
@@ -72,7 +72,7 @@ The user may directly provide ECEF velocity components:
 - Vy
 - Vz
 
-in meters per year. When covariance propagation is enabled, standard deviations for both position and velocity components can also be provided.
+in meters per year. When formal covariance propagation is enabled, standard deviations for both position and velocity components can also be provided.
 
 ## Graphical Interface
 
@@ -126,7 +126,7 @@ This module retrieves SIRGAS-CON weekly coordinates for a selected station and d
 - station code;
 - date.
 
-The software obtains the corresponding coordinates from the SIRGAS-CON solution files and displays the result in the interface.
+The software downloads the corresponding SIRGAS-CON coordinate solution in CRD format and extracts the coordinates of the selected station. An active Internet connection is therefore required when using this module.
 
 ### 4. ITRF-Updates
 
@@ -144,19 +144,21 @@ The supported ITRF2020 realizations are:
 
 The output includes reference coordinates, velocities, propagated coordinates, and the time difference from the reference epoch.
 
+This module accesses external ITRF data to retrieve the required station information and therefore requires an active Internet connection.
+
 ## Requirements
 
-A-TREVel requires:
+A-TREVel requires MATLAB to run. The software was developed and tested using **MATLAB R2025a**, which is therefore the recommended release. Compatibility with earlier MATLAB releases has not been systematically evaluated.
 
-- MATLAB installed;
-- MATLAB App Designer support;
-- the source files and auxiliary functions included in the repository.
+The graphical user interface was developed using MATLAB App Designer and is provided through the `apppolo_trevel.mlapp` file.
 
-The software was developed and tested in MATLAB. Compatibility with older MATLAB versions may depend on App Designer support and the availability of required functions.
+All source files and auxiliary functions included in the A-TREVel repository should be kept in the repository folder or otherwise remain accessible through the MATLAB path.
+
+An Internet connection is not required for all A-TREVel operations. However, it is required for functionalities that retrieve external geodetic products. See the **Internet Requirements** section below.
 
 ## Installation
 
-Clone the repository:
+A-TREVel can be installed by cloning the repository:
 
 ```bash
 git clone https://github.com/zaupa-jp/A-TREVel.git
