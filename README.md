@@ -199,15 +199,15 @@ The following example illustrates a basic coordinate update and can also be used
 
 In the **Update Coordinates** module, use the following configuration:
 
-- **Initial reference frame:** ITRF2014
-- **Target reference frame:** ITRF2020
+- **RF Initial** ITRF2014
 - **Initial epoch:** `[INITIAL EPOCH]`
+- **RF Final** ITRF2020
 - **Target epoch:** `[TARGET EPOCH]`
-- **Coordinate type:** Cartesian
+- **Coord. type:** XYZ
 - **X:** `[X]` m
 - **Y:** `[Y]` m
 - **Z:** `[Z]` m
-- **Velocity model:** User-defined
+- **Velocity model:** Insert
 - **Vx:** `[VX]` m/year
 - **Vy:** `[VY]` m/year
 - **Vz:** `[VZ]` m/year
