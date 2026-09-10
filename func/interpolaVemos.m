@@ -79,11 +79,27 @@ function vel = interpolaVemos(vemos, lat0, lon0)
     % -----------------------------------------------------------
     w = 1 ./ d;
     
-    vel.vN      = sum(w .* vN(viz))  / sum(w);
-    vel.vE      = sum(w .* vE(viz))  / sum(w);
-    vel.sigN    = sum(w .* sN(viz)) / sum(w);
-    vel.sigE    = sum(w .* sE(viz)) / sum(w);
-    vel.vU      = vU;
-    vel.sigU    = sU;
-
+    % Pesos normalizados
+    alpha = w ./ sum(w);
+    
+    % Interpolação das velocidades
+    vel.vN = sum(alpha .* vN(viz));
+    vel.vE = sum(alpha .* vE(viz));
+    vel.vU = vU;
+    
+    % Versão antiga:
+    % vel.sigN = sum(w .* sN(viz)) / sum(w);
+    % vel.sigE = sum(w .* sE(viz)) / sum(w);
+    % vel.sigU = sU;
+    
+    % Versão nova:
+    % Covariance propagation assuming independence between grid nodes
+    varN = sum((alpha.^2) .* (sN(viz).^2));
+    varE = sum((alpha.^2) .* (sE(viz).^2));
+    
+    % Standard deviations of the interpolated velocity
+    vel.sigN = sqrt(varN);
+    vel.sigE = sqrt(varE);
+    vel.sigU = sU;
+    
 end
